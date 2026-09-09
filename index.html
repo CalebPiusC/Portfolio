@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  index.html — THE SKELETON (notebook-meets-changelog edition)
+  ------------------------------------------------------------
+  Built from YOUR brief (caleb-portfolio-brief.pdf), which is now
+  the authority for this site. If this file and an old chat ever
+  disagree, this file wins — it follows the brief.
+
+  Map of this page (8 parts):
+    1. navbar ......... logo, links, say-hello button
+    2. hero ............ name, tagline, 3 honest stats
+    3. about ........... intro + concept/code/confusion specimen
+    4. work ............ 5 case-study blocks + 1 lab experiment
+    5. stack ........... skills in 5 groups (not a tag cloud)
+    6. journey ......... 5 phases, Android to AI engineering
+    7. log ............. RENDERED FROM data.js (see below!)
+    8. contact + footer  email, GitHub, credits
+
+  THE LOG MECHANIC (the heart of your brief):
+  The #log section below is EMPTY on purpose. Your entries live
+  in data.js (one plain file), and script.js prints them here,
+  newest first. To update the site you edit data.js, commit, push.
+  One file, one habit, visible GitHub history. That's the concept.
+============================================================= -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Caleb — software engineering student at OAU, Ile-Ife. Android apps, campus platforms, business automations. Now walking the road to AI engineering." />
+  <title>Caleb — Builder's Log</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Load order matters: BOTH scripts use "defer", and deferred
+       scripts run IN ORDER after the HTML is read. So data.js
+       (your log entries) always loads BEFORE script.js (the code
+       that prints them). Data first, code second. -->
+  <script src="data.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <!-- ==================== 1. NAVBAR ==================== -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="logo" href="#top" aria-label="Back to top">
+        <span class="lights" aria-hidden="true">
+          <span class="light red"></span>
+          <span class="light yellow"></span>
+          <span class="light green"></span>
+        </span>
+        caleb
+      </a>
+
+      <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+
+      <ul id="nav-links" class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#work">work</a></li>
+        <li><a href="#stack">stack</a></li>
+        <li><a href="#journey">journey</a></li>
+        <li><a href="#log">log</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+
+      <a class="btn btn-small" href="#contact">Say hello</a>
+    </nav>
+  </header>
+
+  <main id="content">
+
+    <!-- ==================== 2. HERO ====================
+         Name + one-line tagline + 3 HONEST stats (brief's rule:
+         no inflated numbers — every stat here is verifiable). -->
+    <section id="top" class="hero">
+      <p class="mono-label">software engineering student — OAU, ile-ife</p>
+      <h1>Caleb</h1>
+      <p class="tagline">"I build tools that solve my own problems."</p>
+      <p class="hero-sub">Android apps, campus platforms, and business automations — now walking the road to AI engineering, one Python commit a day.</p>
+
+      <div class="hero-cta">
+        <a class="btn" href="#work">See my work</a>
+        <a class="btn btn-ghost" href="#log">Read the log</a>
+      </div>
+
+      <dl class="stats">
+        <div class="stat">
+          <dt>builds shipped or in motion</dt>
+          <dd>5</dd>
+        </div>
+        <div class="stat">
+          <dt>days into daily python</dt>
+          <!-- Verified: python-ai-journey shows lesson1 + day 2 + day 3.
+               Bump this as the streak grows — and keep committing! -->
+          <dd>day 3</dd>
+        </div>
+        <div class="stat">
+          <dt>platforms: android + web</dt>
+          <dd>2</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ==================== 3. ABOUT ====================
+         Short intro + your note format as a literal design element.
+         The specimen card below is a REAL entry, reconstructed from
+         your UniEvents "bust the CSS cache" deploy fix (Sep 2026) —
+         not invented. Real notes beat lorem ipsum. -->
+    <section id="about" class="section reveal">
+      <p class="mono-label">01 — about</p>
+      <h2>I learn in three lines.</h2>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm Caleb, a software engineering student at Obafemi Awolowo University. I started ahead of the coursework with Android and Java, led product decisions on a team web platform, freelanced automations for local businesses — and now I'm walking toward AI engineering with a daily Python habit.</p>
+          <p>I build with AI assistance, and I take that seriously. So I have one rule:</p>
+          <blockquote class="rule">Never ship what I can't explain.</blockquote>
+          <p>Most of this site is stable — who I am, what I've shipped. The exception is <a href="#log">the log</a>, updated as things actually happen.</p>
+        </div>
+
+        <figure class="specimen">
+          <figcaption>from my notes — a real deploy fix, sep 2026</figcaption>
+          <dl>
+            <div>
+              <dt>concept</dt>
+              <dd>Browsers cache stylesheets, so returning visitors can see stale CSS after a deploy.</dd>
+            </div>
+            <div>
+              <dt>code</dt>
+              <dd><code>styles.css?v=5</code> + tell Netlify not to cache the HTML.</dd>
+            </div>
+            <div>
+              <dt>confusion</dt>
+              <dd>Photos updated but styles didn't — is it my code, or the cache? (It was the cache.)</dd>
+            </div>
+          </dl>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ==================== 4. WORK ====================
+         Every shipped project as a case-study block: what it is,
+         role, tech, status. Brief's list, brief's order.
+         NOTE: no code links anywhere — per your standing rule. The
+         only repo linked on this whole site is python-ai-journey,
+         under "Learning now" in #stack. -->
+    <section id="work" class="section reveal">
+      <p class="mono-label">02 — work</p>
+      <h2>Things I've actually built.</h2>
+
+      <div class="work-list">
+        <article class="work-block">
+          <p class="badge">demo-ready</p>
+          <h3>Beacon</h3>
+          <p class="work-sub">A peer-to-peer errand marketplace for OAU students.</p>
+          <p>Two-sided accounts — Task Posters and Runners — with escrow-style payments held until the job is actually done, in-app chat, and a demo wallet. I built the branding (Beacon Blue + Signal Gold) and full light and dark mode from scratch.</p>
+          <p class="role-line"><strong>Role:</strong> solo — concept, design, build.</p>
+          <p class="tech">Java · Android Studio · RecyclerView · Fragments · SharedPreferences</p>
+        </article>
+
+        <article class="work-block">
+          <!-- TODO(Caleb): after your defense (Sep 11!), update this
+               badge — e.g. "defended 🎓" — and add a log entry. -->
+          <p class="badge">in development · defense sep 11 🎓</p>
+          <h3>UniEvents</h3>
+          <p class="work-sub">Event management + ticketing for university events.</p>
+          <p>Students browse and register for campus events; organizers manage them. Registration mints a unique QR ticket, scanned at the door through the browser camera. Students apply in-app to become organizers; an admin approves. Paystack runs in test mode — a real payment flow without moving real money.</p>
+          <p class="role-line"><strong>Role:</strong> Group 5 — I led product, account &amp; platform decisions.</p>
+          <p class="tech">HTML · CSS · JavaScript · Firebase · Paystack API</p>
+        </article>
+
+        <article class="work-block">
+          <p class="badge">active · freelance</p>
+          <h3>Automation for local businesses</h3>
+          <p class="work-sub">Lead capture + follow-up for small OAU-area businesses.</p>
+          <p>Make.com workflows that carry a lead from a Google Form into Notion and fire a follow-up email automatically — replacing work currently done by hand, for businesses doing it all manually today.</p>
+          <p class="role-line"><strong>Role:</strong> freelance / client work.</p>
+          <p class="tech">Make.com · Notion · Google Forms · Gmail · WhatsApp Business API</p>
+        </article>
+
+        <article class="work-block">
+          <p class="badge">built</p>
+          <h3>Customer Support Triage</h3>
+          <p class="work-sub">Routes and triages incoming support emails automatically.</p>
+          <p>Watches a Gmail inbox, sends each message to Claude to classify and summarize, logs the result to a spreadsheet, and pushes a triaged alert to Slack — so nothing sits unread and low-priority noise never reaches a human first.</p>
+          <p class="role-line"><strong>Role:</strong> solo no-code build.</p>
+          <p class="tech">Gmail · Claude API · Google Sheets · Slack · Make.com</p>
+        </article>
+
+        <article class="work-block">
+          <p class="badge">built</p>
+          <h3>LeadBot</h3>
+          <p class="work-sub">Qualifies inbound leads and routes them automatically.</p>
+          <p>A Google Form intake feeds Claude for lead qualification; every submission is logged to a spreadsheet, then qualified leads route onward — Slack for the team, Gmail for the lead — based on the result.</p>
+          <p class="role-line"><strong>Role:</strong> solo no-code build.</p>
+          <p class="tech">Google Forms · Claude API · Google Sheets · Slack · Gmail · Make.com</p>
+        </article>
+
+        <!-- NOT in the brief — my judgment call (see chat): Deskbot as
+             a small "lab" item pointing at the JARVIS target, with the
+             spec trimmed to safe claims until you confirm details.
+             Delete this whole block if you disagree — 30 seconds. -->
+        <article class="work-block lab">
+          <p class="badge">in the lab 🧪</p>
+          <h3>Deskbot</h3>
+          <p class="work-sub">A voice assistant experiment — first step toward JARVIS.</p>
+          <p>Early prototype: push-to-talk, spoken replies, and a memory — with a hard rule that it asks before changing anything. The long-term target is a JARVIS-style assistant, built for real.</p>
+          <!-- TODO(Caleb): confirm what's actually built (brain module?
+               audit logging? chat UI?) and I'll flesh this out — or say
+               the word and I'll delete the block. -->
+          <p class="role-line"><strong>Role:</strong> solo experiment.</p>
+          <p class="tech">Python · speech-to-text · LLM APIs</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==================== 5. STACK ====================
+         Grouped by category, per the brief — never a flat tag cloud.
+         The Python line links your public learning repo as proof. -->
+    <section id="stack" class="section reveal">
+      <p class="mono-label">03 — stack</p>
+      <h2>What I build with.</h2>
+
+      <div class="stack-grid">
+        <article class="stack-group">
+          <h3>📱 Mobile</h3>
+          <ul><li>Java</li><li>Kotlin</li><li>Android Studio</li><li>Firebase</li></ul>
+        </article>
+        <article class="stack-group">
+          <h3>🌐 Web</h3>
+          <ul><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Firebase Auth / Firestore</li><li>Paystack API</li></ul>
+        </article>
+        <article class="stack-group">
+          <h3>⚙️ Automation</h3>
+          <ul><li>Make.com</li><li>Notion</li><li>Google Forms</li><li>WhatsApp Business API</li><li>Claude / LLM APIs</li></ul>
+        </article>
+        <article class="stack-group">
+          <h3>🌱 Learning now</h3>
+          <ul>
+            <li>Python — <a href="https://github.com/CalebPiusC/python-ai-journey" target="_blank" rel="noopener">watch me learn ↗</a></li>
+            <li>AI engineering fundamentals</li>
+          </ul>
+        </article>
+        <article class="stack-group">
+          <h3>🧰 Tools</h3>
+          <ul><li>Git &amp; GitHub</li><li>VS Code</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==================== 6. JOURNEY ====================
+         Phase by phase, brief's words, lightly trimmed. -->
+    <section id="journey" class="section reveal">
+      <p class="mono-label">04 — journey</p>
+      <h2>How I got here.</h2>
+
+      <ol class="timeline">
+        <li><span>getting started</span> Picked up programming ahead of the coursework — first real focus was Android and Java.</li>
+        <li><span>android, for real</span> Built Beacon end to end: two-sided accounts, escrow payments, in-app chat, full branding.</li>
+        <li><span>onto the web</span> Took a lead role in UniEvents — real auth, a real payment flow, QR ticketing, deliberate scope cuts.</li>
+        <li><span>building for others</span> Freelanced no-code automation for local businesses, then built AI-powered internal tools with Claude inside Make.com.</li>
+        <li><span>now</span> Daily Python, working toward AI engineering. Long-term target: a JARVIS-style assistant, built for real.</li>
+      </ol>
+    </section>
+
+    <!-- ==================== 7. LOG ====================
+         EMPTY ON PURPOSE — script.js prints data.js entries here,
+         newest first. The <noscript> line covers the rare visitor
+         with JS disabled (and reminds YOU where entries live). -->
+    <section id="log" class="section reveal">
+      <p class="mono-label">05 — log</p>
+      <h2>The running log.</h2>
+      <p class="log-sub">Updated as things happen — newest first. Each entry is one line in <code>data.js</code> and one commit on GitHub.</p>
+      <ol id="log-list" class="log-list"></ol>
+      <noscript><p>Log entries need JavaScript to render — they live in data.js, one line each.</p></noscript>
+    </section>
+
+    <!-- ==================== 8. CONTACT ==================== -->
+    <section id="contact" class="section reveal">
+      <p class="mono-label">06 — contact</p>
+      <h2>Say hello.</h2>
+      <p class="contact-text">Email and GitHub below. I reply fast — especially if it's about building things.</p>
+      <div class="contact-cta">
+        <!-- TODO(Caleb): YOUR REAL EMAIL — the brief says "[add yours]"
+             and only you can. Replace "you@example.com" below. -->
+        <a class="btn" href="mailto:you@example.com">✉️ Email me</a>
+        <button class="btn btn-ghost" id="copy-email" type="button">📋 Copy email</button>
+        <a class="btn btn-ghost" href="https://github.com/CalebPiusC" target="_blank" rel="noopener">🐙 GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Caleb · OAU, Ile-Ife · Built with vanilla HTML, CSS &amp; JS</p>
+    <p class="footer-sub">concept · code · confusion · mode: building 😎</p>
+  </footer>
+</body>
+</html>
