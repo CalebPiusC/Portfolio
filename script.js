@@ -1,183 +1,363 @@
-// ============================================================
-// script.js — THE ELECTRICITY (behavior only)
-// ------------------------------------------------------------
-// Plain-words job of this file:
-// It REACTS: to clicks, to scrolling, to the page loading. It
-// never draws anything itself — it adds/removes classes and
-// text, and styles.css does the visual work.
+// Caleb Pius — Working Studio behaviour
+// =====================================================================
+// data.js is the source of truth. This file takes that plain content
+// and turns it into accessible project exhibits, workflow diagrams,
+// journey rooms, toolbox groups, and a build log.
 //
-// The 6 jobs in this file:
-//   1. enableAnimations — tell CSS "JS is running" (reveal gate)
-//   2. renderLog ........ print data.js entries into #log-list
-//      ^^^ THE HEARTBEAT: your daily habit ends here. data.js is
-//          the ink, this function is the hand that writes it.
-//   3. mobileMenu ...... hamburger opens/closes the nav
-//   4. reveal .......... fade sections in as you scroll to them
-//   5. copyEmail ....... copy-email button + "Copied ✓" feedback
-//   6. footerYear ...... footer always shows the current year
-//
-// "use strict" = JS's strict mode: sloppy mistakes become loud
-// errors instead of silent weirdness. Always keep this line.
+// Important safety choice: content is added with textContent, not
+// innerHTML. That means an accidental < or & in data.js stays text and
+// cannot become executable page code.
+// =====================================================================
+
 "use strict";
 
-/* Run everything once the HTML is fully read.
-   (Our <script defer> tags already guarantee this timing, but
-   saying it explicitly protects us if anyone ever moves the tags.) */
 document.addEventListener("DOMContentLoaded", () => {
-  enableAnimations();
-  renderLog();
+  if (typeof SITE_DATA === "undefined") {
+    console.error("data.js did not load, so the studio content cannot render.");
+    return;
+  }
+
+  document.body.classList.add("js");
+  renderCurrentFocus();
+  renderProjects();
+  renderAutomationArchive();
+  renderJourney();
+  renderToolbox();
+  renderBuildLog();
+  renderAbout();
+  renderContact();
+  initProjectDialog();
   initMobileMenu();
-  initReveal();
-  initCopyEmail();
-  initYear();
+  initHeaderState();
+  initReveals();
+  setFooterYear();
 });
 
-/* ---------- JOB 1: enable animations ---------- */
-// styles.css hides .reveal sections ONLY when <body> has class
-// "js". No JS = no class = content just shows. This one line is
-// what "progressive enhancement" looks like in practice.
-function enableAnimations() {
-  document.body.classList.add("js");
+// Small DOM helpers keep rendering functions readable and consistent.
+function makeElement(tag, className, text) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text !== undefined) element.textContent = text;
+  return element;
 }
 
-/* ---------- JOB 2: render the log (THE HEARTBEAT) ---------- */
-// Reads LOG_ENTRIES from data.js and prints each one as:
-//   <li><time class="log-date">2026-09-09</time><span>text…</span></li>
-// That exact shape is what styles.css section 10 expects — HTML,
-// CSS, and JS agreeing on a shape. If you ever change one side,
-// you must change the other. That's the deal.
-function renderLog() {
-  const list = document.getElementById("log-list");
-  if (!list) return; // safety: if the HTML changes, fail silently
-
-  // Guard: data.js missing or list empty? Say so honestly.
-  // (typeof check because referencing a missing const would crash.)
-  if (typeof LOG_ENTRIES === "undefined" || LOG_ENTRIES.length === 0) {
-    list.innerHTML = "<li><span>No entries yet — add your first line in data.js ✎</span></li>";
-    return;
-  }
-
-  // document.createDocumentFragment() = build everything off-screen,
-  // insert once. Faster than adding 50 entries one by one, and a
-  // good habit: touch the live page as rarely as possible.
-  const frag = document.createDocumentFragment();
-
-  for (const entry of LOG_ENTRIES) {
-    const li = document.createElement("li");
-
-    const date = document.createElement("time");
-    date.className = "log-date";
-    date.dateTime = entry.date; // machine-readable date (good practice)
-    date.textContent = entry.date; // <-- textContent, NOT innerHTML!
-
-    const text = document.createElement("span");
-    text.textContent = entry.text; // <-- safe too. See below.
-
-    // WHY textContent? It treats your words as PLAIN TEXT. If a log
-    // entry ever contains "<" or "&", it prints literally instead of
-    // breaking the page (or worse — running as code). This is the #1
-    // habit that separates careful devs from hacked ones. data.js
-    // promised you "plain text only" — this line keeps that promise.
-    li.appendChild(date);
-    li.appendChild(text);
-    frag.appendChild(li);
-  }
-
-  list.appendChild(frag);
+function clear(element) {
+  while (element.firstChild) element.removeChild(element.firstChild);
 }
 
-/* ---------- JOB 3: mobile menu ---------- */
-function initMobileMenu() {
-  const btn = document.getElementById("menu-btn");
-  const links = document.getElementById("nav-links");
-  if (!btn || !links) return;
+function renderCurrentFocus() {
+  const target = document.getElementById("hero-current");
+  if (!target) return;
+  const current = SITE_DATA.currentFocus;
 
-  // Toggle .open on the list (CSS shows/hides it) + keep the
-  // aria-expanded label truthful for screen readers.
-  btn.addEventListener("click", () => {
-    const open = links.classList.toggle("open");
-    btn.setAttribute("aria-expanded", open ? "true" : "false");
-    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-  });
+  target.append(
+    makeElement("p", "status-signal technical", `● ${current.signal}`),
+    makeElement("p", "status-focus", current.focus),
+    makeElement("p", "status-description", current.description),
+    makeElement("p", "status-updated technical", `UPDATED / ${current.updated.toUpperCase()}`)
+  );
+}
 
-  // Tapping a link jumps to a section — so close the menu too.
-  links.addEventListener("click", (event) => {
-    if (event.target.tagName === "A") {
-      links.classList.remove("open");
-      btn.setAttribute("aria-expanded", "false");
-      btn.setAttribute("aria-label", "Open menu");
-    }
+function renderProjects() {
+  const list = document.getElementById("project-list");
+  if (!list) return;
+  clear(list);
+
+  SITE_DATA.projects.forEach((project, index) => {
+    const article = makeElement("article", "project-exhibit reveal");
+    article.style.setProperty("--project-color", project.color);
+    article.style.setProperty("--project-accent", project.accent);
+    article.style.setProperty("--project-order", String(index + 1));
+
+    const visual = makeElement("div", "project-visual");
+    visual.setAttribute("aria-hidden", "true");
+    visual.append(
+      makeElement("span", "visual-grid-line"),
+      makeElement("span", "visual-grid-line"),
+      makeElement("p", "technical visual-number", project.number),
+      makeElement("p", "visual-title", project.visual),
+      makeElement("p", "technical visual-type", project.category)
+    );
+
+    const copy = makeElement("div", "project-copy");
+    const meta = makeElement("div", "project-meta technical");
+    meta.append(makeElement("span", "", `${project.number} / ${project.category}`), makeElement("span", "project-status", project.status));
+
+    const title = makeElement("h3", "", project.name);
+    const summary = makeElement("p", "project-summary", project.summary);
+    const role = makeElement("p", "project-role", project.role);
+    const toolLine = makeElement("p", "project-tools technical", project.tools.join(" · "));
+    const button = makeElement("button", "text-link", "OPEN CASE STUDY ↗");
+    button.type = "button";
+    button.dataset.project = project.slug;
+    button.setAttribute("aria-label", `Open ${project.name} case study`);
+
+    copy.append(meta, title, summary, role, toolLine, button);
+    article.append(visual, copy);
+    list.appendChild(article);
   });
 }
 
-/* ---------- JOB 4: scroll reveal ---------- */
-function initReveal() {
-  const items = document.querySelectorAll(".reveal");
-  if (items.length === 0) return;
+function renderAutomationArchive() {
+  const list = document.getElementById("automation-list");
+  if (!list) return;
+  clear(list);
 
-  // Fallback: ancient browsers without IntersectionObserver just
-  // show everything. Content first, effects second — always.
-  if (!("IntersectionObserver" in window)) {
-    items.forEach((el) => el.classList.add("visible"));
-    return;
-  }
+  SITE_DATA.automationArchive.forEach((item) => {
+    const article = makeElement("article", "automation-flow reveal");
+    const header = makeElement("div", "automation-header");
+    header.append(makeElement("p", "technical", item.number), makeElement("h3", "", item.title));
 
-  // The observer watches each .reveal and fires when ~12% of it
-  // enters the screen. Then it STOPS watching that element
-  // (unobserve) — reveal once, never again, no wasted work.
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
+    const description = makeElement("p", "automation-description", item.description);
+    const workflow = makeElement("ol", "workflow", undefined);
+    workflow.setAttribute("aria-label", `${item.title} workflow`);
+
+    item.tools.forEach((tool, index) => {
+      const step = makeElement("li", "workflow-step", tool);
+      if (index < item.tools.length - 1) step.appendChild(makeElement("span", "workflow-arrow", "→"));
+      workflow.appendChild(step);
+    });
+
+    const focus = makeElement("p", "automation-focus technical", item.focus);
+    article.append(header, description, workflow, focus);
+    list.appendChild(article);
+  });
+}
+
+function renderJourney() {
+  const list = document.getElementById("journey-list");
+  if (!list) return;
+  clear(list);
+
+  SITE_DATA.journey.forEach((room) => {
+    const item = makeElement("li", "journey-room reveal");
+    const index = makeElement("p", "journey-index technical", room.number);
+    const phase = makeElement("p", "journey-phase technical", room.phase);
+    const title = makeElement("h3", "", room.title);
+    const text = makeElement("p", "", room.text);
+    const evidence = makeElement("p", "journey-evidence technical", room.evidence);
+    item.append(index, phase, title, text, evidence);
+    list.appendChild(item);
+  });
+}
+
+function renderToolbox() {
+  const list = document.getElementById("toolbox-list");
+  if (!list) return;
+  clear(list);
+
+  SITE_DATA.toolbox.forEach((group, index) => {
+    const article = makeElement("article", "tool-group reveal");
+    const top = makeElement("div", "tool-group-top");
+    top.append(makeElement("p", "technical", `0${index + 1}`), makeElement("h3", "", group.title));
+    article.append(top, makeElement("p", "tool-group-description", group.description));
+
+    const tools = makeElement("ul", "tool-list");
+    group.tools.forEach((tool) => {
+      const item = makeElement("li", "");
+      const name = tool.link ? makeElement("a", "tool-name", tool.name) : makeElement("span", "tool-name", tool.name);
+      if (tool.link) {
+        name.href = tool.link;
+        name.target = "_blank";
+        name.rel = "noopener";
+        name.appendChild(makeElement("span", "external-mark", " ↗"));
       }
-    },
-    { threshold: 0.12 }
+      item.append(name, makeElement("span", "tool-evidence", tool.evidence));
+      tools.appendChild(item);
+    });
+    article.appendChild(tools);
+    list.appendChild(article);
+  });
+}
+
+function renderBuildLog() {
+  const list = document.getElementById("log-list");
+  if (!list) return;
+  clear(list);
+
+  // Sorting protects the newest-first rule even if entries are pasted in
+  // the wrong order. ISO dates sort correctly as plain text.
+  const newestFirst = [...SITE_DATA.buildLog].sort((a, b) => b.date.localeCompare(a.date));
+
+  newestFirst.forEach((entry) => {
+    const item = makeElement("li", "log-entry reveal");
+    const date = makeElement("time", "log-date technical", formatDate(entry.date));
+    date.dateTime = entry.date;
+    const tag = makeElement("span", "log-tag technical", entry.tag);
+    const text = makeElement("p", "", entry.text);
+    item.append(date, tag, text);
+    list.appendChild(item);
+  });
+}
+
+function renderAbout() {
+  const target = document.getElementById("about-copy");
+  if (!target) return;
+  clear(target);
+  SITE_DATA.about.forEach((paragraph) => target.appendChild(makeElement("p", "", paragraph)));
+}
+
+function renderContact() {
+  const target = document.getElementById("contact-links");
+  if (!target) return;
+  clear(target);
+  const contact = SITE_DATA.contact;
+
+  if (contact.email) {
+    const email = makeElement("a", "contact-link", `EMAIL / ${contact.email}`);
+    email.href = `mailto:${contact.email}`;
+    target.appendChild(email);
+  } else {
+    target.appendChild(makeElement("p", "contact-pending technical", "EMAIL / TO BE ADDED"));
+  }
+
+  const github = makeElement("a", "contact-link", "GITHUB / CALEBPIUSC ↗");
+  github.href = contact.github;
+  github.target = "_blank";
+  github.rel = "noopener";
+  target.appendChild(github);
+
+  // No guessed social profile. The link only exists if Caleb supplies it.
+  if (contact.x) {
+    const x = makeElement("a", "contact-link", "X / PROFILE ↗");
+    x.href = contact.x;
+    x.target = "_blank";
+    x.rel = "noopener";
+    target.appendChild(x);
+  }
+}
+
+function initProjectDialog() {
+  const dialog = document.getElementById("project-dialog");
+  const content = document.getElementById("dialog-content");
+  const close = document.getElementById("dialog-close");
+  if (!dialog || !content || !close) return;
+
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-project]");
+    if (!button) return;
+    const project = SITE_DATA.projects.find((item) => item.slug === button.dataset.project);
+    if (!project) return;
+    renderProjectCaseStudy(content, project);
+    dialog.showModal();
+    close.focus();
+  });
+
+  close.addEventListener("click", () => dialog.close());
+
+  // A dialog normally closes with Escape. This adds the familiar click
+  // outside the panel behaviour while keeping the native dialog semantics.
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+}
+
+function renderProjectCaseStudy(target, project) {
+  clear(target);
+  const intro = makeElement("div", "dialog-intro");
+  intro.style.setProperty("--project-color", project.color);
+  intro.append(
+    makeElement("p", "technical", `${project.number} / ${project.category}`),
+    makeElement("h2", "", project.name),
+    makeElement("p", "dialog-status technical", project.status),
+    makeElement("p", "dialog-summary", project.summary)
   );
 
-  items.forEach((el) => observer.observe(el));
+  const grid = makeElement("div", "case-study-grid");
+  const details = [
+    ["THE PROBLEM", project.problem],
+    ["THE SOLUTION", project.solution],
+    ["MY ROLE", project.role],
+    ["WHAT I LEARNED", project.lesson]
+  ];
+
+  details.forEach(([label, value]) => {
+    const block = makeElement("section", "case-study-block");
+    block.append(makeElement("p", "technical", label), makeElement("p", "", value));
+    grid.appendChild(block);
+  });
+
+  const tech = makeElement("section", "case-study-tools");
+  tech.append(makeElement("p", "technical", "TECHNOLOGY"), makeElement("p", "", project.tools.join(" · ")));
+  if (project.note) tech.appendChild(makeElement("p", "case-study-note", project.note));
+
+  const links = makeElement("div", "case-study-links");
+  // Source links are intentionally rendered only when an approved public
+  // link exists. This avoids publishing links to repositories Caleb does
+  // not want to show.
+  if (project.liveLink) links.appendChild(makeExternalLink("VIEW LIVE PROJECT ↗", project.liveLink));
+  if (project.sourceLink) links.appendChild(makeExternalLink("VIEW SOURCE ↗", project.sourceLink));
+
+  target.append(intro, grid, tech);
+  if (links.childElementCount > 0) target.appendChild(links);
 }
 
-/* ---------- JOB 5: copy-email button ---------- */
-function initCopyEmail() {
-  const btn = document.getElementById("copy-email");
-  // Single source of truth: the address lives in the mailto link
-  // in index.html. We READ it from there instead of typing it
-  // twice — so you only ever update it in ONE place.
-  const mailLink = document.querySelector('a[href^="mailto:"]');
-  if (!btn || !mailLink) return;
+function makeExternalLink(label, url) {
+  const link = makeElement("a", "text-link", label);
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener";
+  return link;
+}
 
-  const address = mailLink.getAttribute("href").replace("mailto:", "");
-  const originalText = btn.textContent;
+function initMobileMenu() {
+  const button = document.getElementById("menu-button");
+  const panel = document.getElementById("nav-list");
+  if (!button || !panel) return;
 
-  btn.addEventListener("click", async () => {
-    try {
-      // Modern way: the Clipboard API (needs HTTPS or localhost —
-      // GitHub Pages is HTTPS, so this works there).
-      await navigator.clipboard.writeText(address);
-    } catch {
-      // Fallback for old browsers: invisible textarea + copy command.
-      const ta = document.createElement("textarea");
-      ta.value = address;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
+  button.addEventListener("click", () => {
+    const opened = panel.classList.toggle("is-open");
+    button.classList.toggle("is-open", opened);
+    button.setAttribute("aria-expanded", String(opened));
+    button.setAttribute("aria-label", opened ? "Close navigation" : "Open navigation");
+  });
+
+  panel.addEventListener("click", (event) => {
+    if (event.target.matches("a")) {
+      panel.classList.remove("is-open");
+      button.classList.remove("is-open");
+      button.setAttribute("aria-expanded", "false");
+      button.setAttribute("aria-label", "Open navigation");
     }
-    // Feedback: swap the label for 2 seconds, then swap back.
-    btn.textContent = "✓ Copied!";
-    setTimeout(() => {
-      btn.textContent = originalText;
-    }, 2000);
   });
 }
 
-/* ---------- JOB 6: footer year ---------- */
-// new Date().getFullYear() = 2026 (and 2027 next year, forever).
-// One less thing to remember every January.
-function initYear() {
+function initHeaderState() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  const updateHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 16);
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
+}
+
+function initReveals() {
+  const items = document.querySelectorAll(".reveal");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reducedMotion || !("IntersectionObserver" in window)) {
+    items.forEach((item) => item.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+
+  items.forEach((item) => observer.observe(item));
+}
+
+function formatDate(isoDate) {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  // Constructing from numbers avoids UTC timezone shifts for visitors.
+  return new Intl.DateTimeFormat("en", { month: "short", day: "2-digit", year: "numeric" })
+    .format(new Date(year, month - 1, day))
+    .toUpperCase();
+}
+
+function setFooterYear() {
   const year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
 }
