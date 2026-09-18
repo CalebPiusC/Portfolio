@@ -69,6 +69,7 @@ export const STUDIO_DATA = {
         "qr-ticketing",
       ],
       visual: "EVENT → TICKET → CHECK-IN",
+      contextLine: "CAMPUS EVENTS, WITHOUT THE CHAOS.",
       color: "#d57c65",
       accent: "#efc071",
       summary:
@@ -107,6 +108,7 @@ export const STUDIO_DATA = {
       technologies: ["android-app"],
       skills: ["android-ui"],
       visual: "BASIC + SCIENTIFIC",
+      contextLine: "BASIC WHEN IT NEEDS TO BE. SCIENTIFIC WHEN IT HAS TO BE.",
       color: "#8fa99b",
       accent: "#d7ca85",
       summary:
@@ -145,6 +147,7 @@ export const STUDIO_DATA = {
       technologies: [],
       skills: [],
       visual: "PERSONAL / CODING / COMPANION",
+      contextLine: "A PERSONAL SYSTEM FOR CODING BETTER.",
       color: "#b34f45",
       accent: "#e4a191",
       summary:
@@ -182,6 +185,7 @@ export const STUDIO_DATA = {
       technologies: [],
       skills: [],
       visual: "POST → ACCEPT → COMPLETE",
+      contextLine: "ERRANDS, MATCHED LOCALLY.",
       color: "#7e9ed5",
       accent: "#e0b761",
       summary:
@@ -195,6 +199,39 @@ export const STUDIO_DATA = {
       learned: "Pending verification.",
       currentStatus:
         "Do not promote this exhibit until Caleb supplies a source repository, screenshots, or a confirmed current project record.",
+      links: [],
+    },
+    {
+      id: "cadence-study",
+      number: "05",
+      name: "Cadence Study",
+      category: "STUDENT LEARNING APP",
+      status: "concept",
+      statusLabel: "CONCEPT / EARLY EXPLORATION",
+      featured: false,
+      evidence: {
+        level: "owner-described",
+        summary:
+          "Reported as a JAMB/student learning-app concept with Flutter exploration. No implementation evidence has been supplied for audit.",
+        repository: null,
+      },
+      technologies: [],
+      skills: [],
+      visual: "LEARN → PRACTICE → PROGRESS",
+      contextLine: "A STUDY SYSTEM STILL WAITING FOR ITS RECORD.",
+      color: "#a27fbb",
+      accent: "#d6badf",
+      summary:
+        "A reported student-learning application concept waiting for a project record before it becomes a full studio exhibit.",
+      concept: "Pending verification.",
+      problem: "Pending verification.",
+      solution: "Pending verification.",
+      architecture: "Pending verification.",
+      role: "Pending verification.",
+      challenges: "Pending verification.",
+      learned: "Pending verification.",
+      currentStatus:
+        "Concept / early exploration. Keep this record in the Studio Archive until an implementation or updated direction is confirmed.",
       links: [],
     },
   ],

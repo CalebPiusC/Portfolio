@@ -118,12 +118,12 @@ function renderHome() {
     </section>
 
     <section class="studio-section work-section" id="work" data-pipeline="WORK">
-      <div class="shell"><div class="section-title reveal"><p class="eyebrow">03 / SELECTED WORK</p><h2>Evidence,<br />not claims.</h2><p>Each exhibit holds its status in plain sight. Open records show the problem, implementation, constraints, and lesson.</p></div><div class="exhibit-list">${data.projects
+      <div class="shell"><div class="section-title reveal"><p class="eyebrow">03 / SELECTED WORK</p><h2>Evidence,<br />not claims.</h2><p>Each exhibit holds its status in plain sight. Open records show the problem, implementation, constraints, and lesson.</p></div>${renderProofStrip()}<div class="exhibit-list">${data.projects
         .filter((item) => item.featured)
         .map(renderExhibit)
         .join(
           "",
-        )}</div><a class="section-link" href="${siteUrl("work/")}">VIEW THE FULL WORK INDEX ↗</a></div>
+        )}</div>${renderStudioArchive()}<a class="section-link" href="${siteUrl("work/")}">VIEW THE FULL WORK INDEX ↗</a></div>
     </section>
 
     <section class="studio-section venom-preview" id="automation" data-pipeline="AUTOMATION">
@@ -247,12 +247,24 @@ function renderCurrentDetails() {
   return `<div class="current-details"><div><p class="technical">LEARNING</p><strong>${escape(data.current.learning)}</strong></div><div><p class="technical">BUILDING</p><strong>${escape(data.current.building)}</strong><span class="technical">${escape(projectStatus(data.current.projectId))}</span></div><div><p class="technical">EXPLORING</p><strong>${escape(data.current.exploring)}</strong></div><div><p class="technical">UPDATED</p><strong>${escape(data.current.updated)}</strong></div></div>`;
 }
 
+function renderProofStrip() {
+  const completed = data.projects.filter(
+    (project) => project.status === "archived" && verifiedProject(project),
+  ).length;
+  return `<dl class="proof-strip reveal"><div><dt class="technical">${String(completed).padStart(2, "0")}</dt><dd>COMPLETED COURSEWORK<br />RECORDS</dd></div><div><dt class="technical">01</dt><dd>PUBLIC PYTHON<br />LEARNING RECORD</dd></div><div><dt class="technical">01</dt><dd>PERSONAL BUILD<br />DIRECTION</dd></div></dl>`;
+}
+
+function renderStudioArchive() {
+  const archived = data.projects.filter((project) => !project.featured);
+  return `<section class="studio-archive reveal" aria-labelledby="archive-heading"><div><p class="eyebrow">STUDIO ARCHIVE</p><h3 id="archive-heading">Not every record<br />needs the main floor.</h3><p>Concepts, earlier work, and projects waiting for documentation stay visible without being promoted beyond their evidence.</p></div><ul>${archived.map((project) => `<li><span class="technical">${escape(project.number)}</span><span>${escape(project.name)}</span><small class="technical">${escape(project.statusLabel)}</small></li>`).join("")}<li><span class="technical">A-00</span><span>Automation workflow records</span><a class="technical" href="${siteUrl("automation/")}">OPEN WING ↗</a></li></ul></section>`;
+}
+
 function renderExhibit(project) {
   const caseUrl = projectCaseUrl(project);
   const action = caseUrl
     ? `<a class="text-link" href="${caseUrl}">OPEN CASE STUDY ↗</a>`
     : `<span class="pending-action technical">EVIDENCE REVIEW PENDING</span>`;
-  return `<article class="exhibit reveal" style="--project:${escape(project.color)}; --project-accent:${escape(project.accent)}"><div class="exhibit-art" aria-hidden="true"><span class="art-rule"></span><p class="technical">${escape(project.number)}</p><h3>${escape(project.visual)}</h3><span class="technical">${escape(project.category)}</span></div><div class="exhibit-copy"><div class="exhibit-meta technical"><span>${escape(project.number)} / ${escape(project.category)}</span><span>${escape(project.statusLabel)}</span></div><h3>${escape(project.name)}</h3><p>${escape(project.summary)}</p><p class="evidence-tag technical">${escape(project.evidence.level.toUpperCase())}</p>${action}</div></article>`;
+  return `<article class="exhibit reveal" style="--project:${escape(project.color)}; --project-accent:${escape(project.accent)}"><div class="exhibit-art" aria-hidden="true"><span class="art-rule"></span><p class="technical">${escape(project.number)}</p><h3>${escape(project.visual)}</h3><span class="technical">${escape(project.category)}</span></div><div class="exhibit-copy"><div class="exhibit-meta technical"><span>${escape(project.number)} / ${escape(project.category)}</span><span>${escape(project.statusLabel)}</span></div><p class="exhibit-context technical">${escape(project.contextLine || project.category)}</p><h3>${escape(project.name)}</h3><p>${escape(project.summary)}</p><p class="evidence-tag technical">${escape(project.evidence.level.toUpperCase())}</p>${action}</div></article>`;
 }
 
 function renderAutomation(item) {
