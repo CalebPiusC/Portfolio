@@ -1,101 +1,120 @@
 # Caleb Pius — Working Studio
 
-A living personal portfolio for **Caleb Pius**, a Software Engineering student at Obafemi Awolowo University (OAU), Ile-Ife, Nigeria.
+A living digital studio for **Caleb Pius**, a Software Engineering student at Obafemi Awolowo University (OAU), Nigeria.
 
-This is deliberately a small, static site: no framework, no build step, and no CMS. The point is that Caleb can understand and maintain it while his work, tools, and direction evolve.
+This portfolio is intentionally evidence-led. It does not use fake proficiency percentages or turn a concept into a launch. Project records are connected to the technologies they actually use, and the Toolbox calculates its project relationships from that data.
 
-## The idea
+## Visual direction
 
-The site is a **Working Studio**, not a generic developer template:
+- Warm charcoal ground: `#151412`
+- Warm off-white text: `#EDE8DE`
+- Copper structural accent: `#C1662B`
+- Fraunces for display type, Inter for body text, JetBrains Mono for technical metadata
+- A restrained red system language appears only inside the **VENØM Automation Wing**
 
-- projects are presented as evidence, not as skill claims;
-- the automation archive records systems thinking and integrations;
-- the journey shows progression without pretending Caleb has arrived;
-- the build log makes the portfolio a living record;
-- the toolbox groups tools by real context instead of fake percentage bars.
-
-Visual direction: warm graphite, off-white type, brushed-brass structural details, and project-specific color used only inside project exhibits.
-
-## Files and their jobs
-
-| File | Job |
-|---|---|
-| `index.html` | Semantic page structure—the studio rooms. |
-| `styles.css` | Color tokens, typography, layout, responsive design, and restrained motion. |
-| `data.js` | **The editable source of truth** for projects, tools, status, journey, and the build log. |
-| `script.js` | Safely renders the data and handles navigation, case studies, and small interactions. |
-
-## The update system
-
-Open **`data.js`** whenever something changes. It contains these groups:
+## Project structure
 
 ```text
-currentFocus       What Caleb is working on now
-projects           Project exhibits and their case-study details
-automationArchive  Workflow archive entries
-journey            Career / learning chapters
-toolbox            Skills grouped by real level of use
-about              Introductory copy
-buildLog           Dated updates, newest first
-contact            Public contact links
+index.html                    Main continuous studio experience
+work/index.html               Full project index
+automation/index.html         VENØM Automation Wing
+journey/index.html            Branching journey record
+toolbox/index.html            Evidence-driven technology map
+log/index.html                Full build log
+about/index.html              About Caleb
+projects/unievents/index.html UniEvents case study
+projects/scicalc/index.html   SciCalc archive case study
+404.html                      Architectural error page
+
+data/studio-data.js           THE single editable source of truth
+js/app.js                     Rendering, navigation, terminal, motion, toolbox physics
+styles.css                    Materials, typography, responsive design, accessibility
 ```
 
-### Update a skill level honestly
+## The one file to update
 
-Do not use percentages. Move a tool only when the evidence changes:
+Open **`data/studio-data.js`**. It holds:
 
 ```text
-LEARNING NOW → EXPERIMENTING WITH → WORKED WITH → BUILDING WITH
+current        Current learning, build, exploration, and update date
+projects       Status, technologies, evidence, and case-study content
+automations    Workflow records and their evidence state
+technologies   Toolbox technology registry
+skills         Demonstrated-skill registry
+journey        Dated milestones
+buildLog       Newest-first public work and learning record
+about          Personal studio introduction
 ```
 
-Then change its `evidence` text to name the project, workflow, or learning milestone that earned that move.
+## Update skills honestly
 
-Example: after building a real Python CLI project, move Python from **LEARNING NOW** to **WORKED WITH**, reference the project, add it to `projects` if appropriate, and add a dated build-log entry.
+There are no `Python 80%` style ratings.
 
-### Add a build-log entry
+A technology is connected to a project once in `project.technologies`. The site then calculates the number of **verified project connections** itself.
 
-Add the next object **at the top** of `buildLog`:
+Move a technology only when the evidence changes:
+
+```text
+CURRENTLY LEARNING → EXPERIMENTED WITH → WORKED WITH → BUILDING WITH
+```
+
+Example after a real Python project:
+
+1. Add that project once in `projects`.
+2. Add `"python"` to its `technologies`.
+3. Change Python's `state` if the project proves a new level of use.
+4. Add a dated Journey item and Build Log entry if useful.
+5. Commit and push.
+
+A project marked `needs-verification` does **not** inflate public technology counts.
+
+## Add a Build Log entry
+
+Add the newest item at the top of `buildLog`:
 
 ```js
-{ date: "2026-09-24", tag: "BUILT", text: "Built my first Python CLI project and practiced file handling." },
+{
+  date: "2026-09-24",
+  type: "BUILDING",
+  text: "Built a small Python CLI project and practiced file handling.",
+  projectId: "my-python-cli"
+}
 ```
 
-Use `YYYY-MM-DD`. The site still sorts entries newest first as a safety check.
+Use `YYYY-MM-DD`. The site sorts the log newest-first as a safety net.
 
-### Add a project
+## Evidence rules
 
-1. Add real screenshots or diagrams to an `assets/` folder when available.
-2. Copy one project object in `projects` and edit the details.
-3. Include only an honest problem, solution, role, tools, and lesson.
-4. Add a live or source URL only when it is verified and public.
-5. Add a matching build-log entry and journey milestone if useful.
+Project evidence may be:
 
-> Do not add tokens, API keys, private client information, or anything Caleb does not want public to `data.js`.
+- `github` — public source/artifact reviewed
+- `owner-confirmed` — Caleb has explicitly confirmed the current status
+- `needs-verification` — project is recorded but no source, screenshot, documentation, or precise record has been checked yet
+
+Do not add API keys, access tokens, private client details, or private workflow data to this public repository.
 
 ## Local preview
 
-From this folder:
-
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8000 --bind 0.0.0.0
 ```
 
-Then open `http://localhost:8000`.
+Open `http://localhost:8000`.
 
-## Free deployment: GitHub Pages
+## Deployment
 
-1. Push or merge the site onto the repository's `main` branch.
-2. Open **Settings → Pages** in the GitHub repository.
-3. Choose **Deploy from a branch**.
-4. Select `main` and the `/ (root)` folder.
-5. Save and wait for GitHub Pages to publish it.
+The site is plain HTML, CSS, and JavaScript. Deploy it free through GitHub Pages:
 
-## Content still intentionally awaiting confirmation
+1. Merge or push the desired branch to `main`.
+2. Go to the repository’s **Settings → Pages**.
+3. Select **Deploy from a branch**.
+4. Choose `main` and `/ (root)`.
+5. Save.
 
-- A public portfolio email address.
-- UniEvents' verified post-defense status (the previously stated September 11, 2026 date has passed).
-- Whether SciCalc, Cadence Study, or any other older project should be documented, archived, or excluded.
-- Real screenshots and verified live URLs for any featured project.
-- Optional X profile URL.
+## Pending evidence
 
-The site does not make up those details. It will be stronger with verified evidence than with filler.
+- Public repository or files for the **Personal Coding Companion / Venom**.
+- Approved public name for the companion and the VENØM automation identity.
+- Source code/screenshots and precise implementation details for SciCalc, if it should move beyond its archive record.
+- Redacted workflow evidence for automation projects.
+- A public contact email, LinkedIn/X links, and optional CV.
