@@ -1,120 +1,99 @@
-# Caleb Pius — Working Studio
+# Caleb Pius — building as VENOM
 
-A living digital studio for **Caleb Pius**, a Software Engineering student at Obafemi Awolowo University (OAU), Nigeria.
+Personal portfolio of **Caleb Pius**, Software Engineering student at Obafemi Awolowo University, building toward **machine learning engineering**.
 
-This portfolio is intentionally evidence-led. It does not use fake proficiency percentages or turn a concept into a launch. Project records are connected to the technologies they actually use, and the Toolbox calculates its project relationships from that data.
+**Identity:** Caleb → building as VENOM.  
+**Philosophy:** BUILD. LEARN. EVOLVE.
+
+This is **not** a company, not a Marvel/Venom-themed site. VENOM is simply Caleb's personal building identity — a space where he experiments, breaks things, learns, and turns ideas into working systems.
 
 ## Visual direction
 
-- Warm charcoal ground: `#151412`
-- Warm off-white text: `#EDE8DE`
-- Copper structural accent: `#C1662B`
-- Fraunces for display type, Inter for body text, JetBrains Mono for technical metadata
-- A restrained red system language appears only inside the **VENØM Automation Wing**
+- **Palette:** Copper `#C87533` (accent), Dark base `#11100E`, Secondary dark brown `#30251D`, Muted warm grey `#9A9187`, Warm ivory `#F1E9DE`
+- Copper used only for active states, important lines, nodes, arrows, interaction, selected elements, subtle highlights — not dominant
+- **Typography:** Fraunces (display — VENOM, major headings, BUILD. LEARN. EVOLVE.), Inter (body), JetBrains Mono (section numbers, technical labels, annotations, statuses, metadata)
+- **Language:** technical + experimental + human + editorial — neural pathways, nodes, directional arrows, annotations, technical labels, subtle data references, structured typography, organic snake-like geometry, controlled asymmetry, deliberate whitespace, full-screen canvas
+- **Canvas:** 85–90% viewport width on desktop, intentionally uses available space, designed for mobile → laptop → desktop → ultrawide
 
-## Project structure
+## Brand mark
 
-```text
-index.html                    Main continuous studio experience
-work/index.html               Full project index
-automation/index.html         VENØM Automation Wing
-journey/index.html            Branching journey record
-toolbox/index.html            Evidence-driven technology map
-log/index.html                Full build log
-about/index.html              About Caleb
-projects/unievents/index.html UniEvents case study
-projects/scicalc/index.html   SciCalc archive case study
-404.html                      Architectural error page
+Continuous neural snake vector mark — abstract, minimal, memorable, professional, technically inspired. Integrates neural-network nodes, connected pathways, data-flow geometry. Works at small sizes as primary site icon. Not a literal cartoon snake, not Python logo.
 
-data/studio-data.js           THE single editable source of truth
-js/app.js                     Rendering, navigation, terminal, motion, toolbox physics
-styles.css                    Materials, typography, responsive design, accessibility
-```
+## Structure — single-page experience
 
-## The one file to update
+No page loading between sections. Smooth scroll through one continuous environment:
 
-Open **`data/studio-data.js`**. It holds:
+1. **HERO** — identity reveal: Hi, I'm Caleb Pius. → but I build as → VENOM → BUILD. LEARN. EVOLVE. → Building toward ML engineering → CTAs → tool row
+2. **WORK** — 01 / WORK — THINGS I'VE BUILT. Real projects, experiments, systems — including things that didn't work. Status: BUILDING / EXPERIMENT / ARCHIVED / COMPLETED
+3. **JOURNEY** — 02 / JOURNEY — neural/snake-like pathway START → PYTHON → BUILDING → AUTOMATION → AI → ML → NEXT, nodes activate, pathway draws itself
+4. **LAB** — 03 / LAB — digital workbench, experiments with WHAT? WHY? RESULT? statuses EXPERIMENTING / RUNNING / TESTING / PAUSED
+5. **ABOUT** — 04 / ABOUT — THE PERSON BEHIND THE BUILD. Human and honest, metadata EDUCATION → UNIVERSITY → FOCUS → CURRENTLY → STATUS, annotation → NOT AN EXPERT. STILL BUILDING.
+6. **CONTACT** — 05 / CONTACT — HAVE AN IDEA? LET'S BUILD SOMETHING. CTA LET'S COLLABORATE ↗, small horizontal contact icons
+7. **FOOTER** — minimal VENOM / BUILD. LEARN. EVOLVE. / © 2026 / ↑ BACK TO TOP
 
-```text
-current        Current learning, build, exploration, and update date
-projects       Status, technologies, evidence, and case-study content
-automations    Workflow records and their evidence state
-technologies   Toolbox technology registry
-skills         Demonstrated-skill registry
-journey        Dated milestones
-buildLog       Newest-first public work and learning record
-about          Personal studio introduction
-```
+## Animation philosophy
 
-## Update skills honestly
+Every major section has unique entrance animation (300–600ms) when entering viewport. Fast, purposeful, coordinated. Scroll → elements respond → assemble → continue. No waiting. Target 300–600ms. Elements enter quick succession: heading, supporting text, visual, annotations, background details. No generic fade-in for every section.
 
-There are no `Python 80%` style ratings.
+- Hero: text assembles, neural snake forms from nodes/pathways, VENOM focal point
+- Work: projects reveal/expose
+- Journey: pathway draws, nodes activate, info beside relevant node
+- Lab: elements connect, rearrange, reveal
+- About: restrained, typography settles
+- Contact: elements converge toward CTA
 
-A technology is connected to a project once in `project.technologies`. The site then calculates the number of **verified project connections** itself.
+Respects `prefers-reduced-motion`.
 
-Move a technology only when the evidence changes:
+## Header
 
-```text
-CURRENTLY LEARNING → EXPERIMENTED WITH → WORKED WITH → BUILDING WITH
-```
+Left: neural snake icon + VENOM  
+Middle: WORK · JOURNEY · LAB · ABOUT with active dot indicator (dot becomes copper, slightly larger, subtle pulse)  
+Next: prominent CONTACT  
+Far right: GitHub
 
-Example after a real Python project:
+No giant MENU on desktop, no excessive glassmorphism. Becomes slightly more compact after scroll. No scroll progress bar.
 
-1. Add that project once in `projects`.
-2. Add `"python"` to its `technologies`.
-3. Change Python's `state` if the project proves a new level of use.
-4. Add a dated Journey item and Build Log entry if useful.
-5. Commit and push.
+Mobile: [ SNAKE ] [ ACTIVE SECTION ] [ MENU ] → WORK / JOURNEY / LAB / ABOUT / CONTACT ↗ / GITHUB
 
-A project marked `needs-verification` does **not** inflate public technology counts.
+## Tool row
 
-## Add a Build Log entry
+Horizontal row below hero CTAs. Clean consistent vector icons. Only tools genuinely used: Python, Git, GitHub, Flask, Flutter, Firebase, Make, Gemini, APIs. Muted grey default, copper accent on hover + clearer label. No skill percentages.
 
-Add the newest item at the top of `buildLog`:
+## Content honesty
 
-```js
-{
-  date: "2026-09-24",
-  type: "BUILDING",
-  text: "Built a small Python CLI project and practiced file handling.",
-  projectId: "my-python-cli"
-}
-```
+Portfolio of someone actively learning and building. No exaggerated experience, no invented clients, achievements, skills, projects, statistics, certifications, testimonials, professional experience, contact info. If not supplied, placeholder or leave out. Communicates **in progress**, not **already finished**.
 
-Use `YYYY-MM-DD`. The site sorts the log newest-first as a safety net.
+## Tech stack
 
-## Evidence rules
-
-Project evidence may be:
-
-- `github` — public source/artifact reviewed
-- `owner-confirmed` — Caleb has explicitly confirmed the current status
-- `needs-verification` — project is recorded but no source, screenshot, documentation, or precise record has been checked yet
-
-Do not add API keys, access tokens, private client details, or private workflow data to this public repository.
+- Plain HTML, CSS, JavaScript (no framework)
+- Single page, no loading screens between sections
+- Data separate from rendering: `data/projects.js`, `data/journey.js`, `data/lab.js`, `data/toolbox.js`, `data/currently.js`
+- GitHub contributions API for real activity (github.com/PusCaleb with fallback to CalebPiusC)
+- Performance prioritized: fast → responsive → polished → expressive
 
 ## Local preview
 
 ```bash
 python3 -m http.server 8000 --bind 0.0.0.0
+# open http://localhost:8000
 ```
-
-Open `http://localhost:8000`.
 
 ## Deployment
 
-The site is plain HTML, CSS, and JavaScript. Deploy it free through GitHub Pages:
+Plain static site. Deploy via GitHub Pages from `main` branch root.
 
-1. Merge or push the desired branch to `main`.
-2. Go to the repository’s **Settings → Pages**.
-3. Select **Deploy from a branch**.
-4. Choose `main` and `/ (root)`.
-5. Save.
+## Directional annotation system
 
-## Pending evidence
+- arrow = directs attention (→ KEEP GOING, WHY →, NEXT →)
+- line = connects things
+- number = provides structure (01 / WORK)
+- node = represents something
+- animation = communicates state or interaction
 
-- Public repository or files for the **Personal Coding Companion / Venom**.
-- Approved public name for the companion and the VENØM automation identity.
-- Source code/screenshots and precise implementation details for SciCalc, if it should move beyond its archive record.
-- Redacted workflow evidence for automation projects.
-- A public contact email, LinkedIn/X links, and optional CV.
+Every annotation must have purpose. No random technical text to look complex.
+
+## Final principle
+
+One continuous experience: WHO I AM → WHAT I'VE BUILT → HOW I GOT HERE → WHAT I'M EXPLORING → WHO IS BEHIND IT → HOW TO REACH ME
+
+Connected through VENOM, neural snake, copper, annotations, pathways, nodes, purposeful motion, BUILD. LEARN. EVOLVE.

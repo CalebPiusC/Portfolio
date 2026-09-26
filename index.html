@@ -1,38 +1,222 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Caleb Pius — Software Engineering student at OAU. A living studio for verified projects, learning records, systems, and experiments."
-    />
-    <meta name="theme-color" content="#151412" />
-    <meta property="og:title" content="Caleb Pius — Working Studio" />
-    <meta
-      property="og:description"
-      content="Verified work, learning records, systems, and experiments."
-    />
-    <meta property="og:type" content="website" />
-    <title>Caleb Pius — Working Studio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="js/app.js"></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <header id="site-header"></header>
-    <main id="main-content" data-page="home">
-      <noscript
-        >This studio uses JavaScript to render its evidence records.</noscript
-      >
-    </main>
-    <footer id="site-footer"></footer>
-    <div id="terminal-root"></div>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Caleb Pius — building as VENOM. Software Engineering student at OAU, building toward machine learning engineering. BUILD. LEARN. EVOLVE." />
+  <meta name="theme-color" content="#11100E" />
+  <title>Caleb Pius — building as VENOM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800;9..144,900&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- HEADER -->
+  <header id="header" aria-label="Site header">
+    <div class="header-inner">
+      <a href="#hero" class="brand-mark" aria-label="VENOM — Home">
+        <svg viewBox="0 0 64 32" width="48" height="24" aria-hidden="true" class="snake-mark">
+          <!-- continuous neural snake -->
+          <path d="M4 16 C 12 4, 20 4, 28 16 S 44 28, 60 16" fill="none" stroke="#C87533" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+          <circle cx="4" cy="16" r="2.2" fill="#F1E9DE" stroke="#C87533" stroke-width="1"/>
+          <circle cx="16" cy="8.5" r="1.8" fill="#11100E" stroke="#9A9187" stroke-width="1"/>
+          <circle cx="28" cy="16" r="2.4" fill="#C87533" />
+          <circle cx="40" cy="23.5" r="1.6" fill="#11100E" stroke="#9A9187" stroke-width="1"/>
+          <circle cx="52" cy="18" r="1.8" fill="#F1E9DE" stroke="#C87533" stroke-width="1"/>
+          <circle cx="60" cy="16" r="2.2" fill="#11100E" stroke="#C87533" stroke-width="1.2"/>
+          <!-- small data flow ticks -->
+          <path d="M16 8.5 L 28 16" stroke="#30251D" stroke-width="0.6" stroke-dasharray="1.5 2" opacity="0.8"/>
+          <path d="M28 16 L 40 23.5" stroke="#30251D" stroke-width="0.6" stroke-dasharray="1.5 2" opacity="0.8"/>
+        </svg>
+        <span class="brand-text">VENOM</span>
+      </a>
+
+      <nav class="header-nav" aria-label="Primary">
+        <div class="nav-links" id="nav-links">
+          <a href="#work" data-nav="work"><span class="nav-dot" aria-hidden="true"></span><span class="nav-label">WORK</span></a>
+          <a href="#journey" data-nav="journey"><span class="nav-dot" aria-hidden="true"></span><span class="nav-label">JOURNEY</span></a>
+          <a href="#lab" data-nav="lab"><span class="nav-dot" aria-hidden="true"></span><span class="nav-label">LAB</span></a>
+          <a href="#about" data-nav="about"><span class="nav-dot" aria-hidden="true"></span><span class="nav-label">ABOUT</span></a>
+        </div>
+        <a href="#contact" class="nav-contact" data-nav="contact">CONTACT</a>
+        <a href="https://github.com/CalebPiusC" target="_blank" rel="noopener" class="nav-github" aria-label="GitHub">GitHub</a>
+      </nav>
+
+      <div class="header-mobile">
+        <div class="mobile-active" id="mobile-active">WORK</div>
+        <button id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="menu-line"></span>
+          <span class="menu-line"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <a href="#work" data-nav="work">WORK</a>
+      <a href="#journey" data-nav="journey">JOURNEY</a>
+      <a href="#lab" data-nav="lab">LAB</a>
+      <a href="#about" data-nav="about">ABOUT</a>
+      <a href="#contact" data-nav="contact">CONTACT ↗</a>
+      <a href="https://github.com/CalebPiusC" target="_blank" rel="noopener">GITHUB</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section id="hero" aria-label="Hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-grid"></div>
+        <div class="hero-nodes">
+          <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span><span class="node n5"></span>
+        </div>
+        <div class="hero-labels">
+          <span class="tlabel l1">PY_01</span>
+          <span class="tlabel l2">MODEL_01</span>
+          <span class="tlabel l3">BUILD_07</span>
+          <span class="tlabel l4">STATUS: EVOLVING</span>
+          <span class="tlabel l5">COORD: 07.52N 04.52E</span>
+        </div>
+        <svg class="hero-path" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
+          <path id="hero-path-el" d="M 80 320 C 240 180, 380 200, 520 320 S 780 460, 1120 320" fill="none" stroke="#30251D" stroke-width="1" stroke-dasharray="1200" stroke-dashoffset="1200"/>
+        </svg>
+      </div>
+
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="hero-line h1" data-animate="hero-1">Hi, I'm Caleb Pius.</div>
+          <div class="hero-line h2" data-animate="hero-2">but I build as</div>
+          <div class="hero-venom-wrap" data-animate="hero-3">
+            <h1 class="hero-venom">VENOM</h1>
+            <svg viewBox="0 0 400 80" class="venom-snake" aria-hidden="true">
+              <path d="M 10 40 C 60 10, 110 10, 160 40 S 260 70, 390 40" fill="none" stroke="#C87533" stroke-width="1.5" stroke-linecap="round" class="venom-path"/>
+              <circle cx="10" cy="40" r="3" fill="#F1E9DE" stroke="#C87533" stroke-width="1.2" class="venom-node"/>
+              <circle cx="90" cy="18" r="2.5" fill="#11100E" stroke="#9A9187" stroke-width="1" class="venom-node"/>
+              <circle cx="160" cy="40" r="4" fill="#C87533" class="venom-node"/>
+              <circle cx="240" cy="62" r="2.2" fill="#11100E" stroke="#9A9187" stroke-width="1" class="venom-node"/>
+              <circle cx="320" cy="48" r="2.8" fill="#F1E9DE" stroke="#C87533" stroke-width="1" class="venom-node"/>
+              <circle cx="390" cy="40" r="3.2" fill="#11100E" stroke="#C87533" stroke-width="1.2" class="venom-node"/>
+            </svg>
+          </div>
+          <div class="hero-ble" data-animate="hero-4">BUILD. LEARN. EVOLVE.</div>
+          <div class="hero-sub" data-animate="hero-5">Building toward machine learning engineering.</div>
+          <div class="hero-ctas" data-animate="hero-6">
+            <a href="#work" class="cta-primary">EXPLORE MY WORK ↗</a>
+            <a href="#journey" class="cta-secondary">FOLLOW THE JOURNEY ↓</a>
+          </div>
+          <div class="tool-row" id="tool-row" data-animate="hero-7" aria-label="Tools"></div>
+        </div>
+      </div>
+
+      <div class="hero-annotation a1" aria-hidden="true">→ KEEP GOING</div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work" class="section">
+      <div class="section-meta">
+        <span class="sec-num">01 / WORK</span>
+        <span class="sec-annotation">→ CURRENTLY HERE</span>
+      </div>
+      <div class="section-head">
+        <h2 class="sec-title">THINGS I'VE BUILT.</h2>
+        <p class="sec-desc">Real projects, experiments, and systems — including things that didn't work.</p>
+      </div>
+      <div class="work-canvas" id="work-canvas"></div>
+    </section>
+
+    <!-- JOURNEY -->
+    <section id="journey" class="section">
+      <div class="section-meta">
+        <span class="sec-num">02 / JOURNEY</span>
+        <span class="sec-annotation">WHY →</span>
+      </div>
+      <div class="section-head">
+        <h2 class="sec-title">HOW I GOT HERE.</h2>
+      </div>
+      <div class="journey-canvas">
+        <svg id="journey-path-svg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+          <path id="journey-path" d="M 40 200 C 180 80, 300 80, 440 200 S 680 320, 820 200 S 1020 80, 1160 200" fill="none" stroke="#30251D" stroke-width="1.2" stroke-dasharray="1400" stroke-dashoffset="1400"/>
+        </svg>
+        <div id="journey-nodes" class="journey-nodes"></div>
+      </div>
+      <div id="journey-detail" class="journey-detail" aria-live="polite"></div>
+      <div class="journey-annotation" aria-hidden="true">NEXT → Still building.</div>
+    </section>
+
+    <!-- LAB -->
+    <section id="lab" class="section">
+      <div class="section-meta">
+        <span class="sec-num">03 / LAB</span>
+        <span class="sec-annotation">STATUS: EXPERIMENTING</span>
+      </div>
+      <div class="section-head">
+        <h2 class="sec-title">DIGITAL WORKBENCH.</h2>
+        <p class="sec-desc">What I'm currently experimenting with. Things that might become projects, or might not.</p>
+      </div>
+      <div class="lab-canvas" id="lab-canvas"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="section-meta">
+        <span class="sec-num">04 / ABOUT</span>
+      </div>
+      <div class="about-layout">
+        <div class="about-main">
+          <h2 class="sec-title">THE PERSON BEHIND THE BUILD.</h2>
+          <div class="about-copy" id="about-copy"></div>
+          <div class="about-meta">
+            <div class="meta-row"><span>EDUCATION →</span><span>SOFTWARE ENGINEERING</span></div>
+            <div class="meta-row"><span>UNIVERSITY →</span><span>OBAFEMI AWOLOWO UNIVERSITY</span></div>
+            <div class="meta-row"><span>FOCUS →</span><span>PYTHON / AI / ML</span></div>
+            <div class="meta-row"><span>CURRENTLY →</span><span>LEARNING + BUILDING</span></div>
+            <div class="meta-row"><span>STATUS →</span><span>IN PROGRESS</span></div>
+          </div>
+          <div class="about-annotation">→ NOT AN EXPERT. STILL BUILDING.</div>
+        </div>
+        <div class="about-side">
+          <div class="github-card">
+            <div class="github-head">
+              <h4>GITHUB ACTIVITY</h4>
+              <span id="contrib-status" class="mono"></span>
+            </div>
+            <div id="contrib-graph"></div>
+            <div id="contrib-stats" class="contrib-stats"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="section-meta">
+        <span class="sec-num">05 / CONTACT</span>
+      </div>
+      <div class="contact-inner">
+        <h2 class="contact-title">HAVE AN IDEA?<br/>LET'S BUILD SOMETHING.</h2>
+        <p class="contact-sub">Short, collaboration-focused. If you're building something interesting, let's talk.</p>
+        <a href="mailto:calebpius101@gmail.com" class="contact-cta" id="contact-cta">LET'S COLLABORATE ↗</a>
+        <div class="contact-icons" id="contact-icons"></div>
+        <div class="contact-annotation" aria-hidden="true">→ KEEP GOING</div>
+      </div>
+    </section>
+
+    <footer id="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <div class="footer-venom">VENOM</div>
+          <div class="footer-ble">BUILD. LEARN. EVOLVE.</div>
+        </div>
+        <div class="footer-right">
+          <div>© 2026 Caleb Pius</div>
+          <a href="#hero" class="back-top">↑ BACK TO TOP</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
 </html>
